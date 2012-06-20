@@ -40,11 +40,11 @@ http://github.com/blog/170-token-authentication) is no longer supported by
 GitHub as of June 1 2012; You must now request a v3 API token and use that
 instead.
 
-Requesting a new API token can be done in one line using ``curl`` (please
-substitute your own github username and password):
+Requesting a new API token can be done using ``curl`` (please substitute 
+your own github username):
 
-    curl -s -X POST -d '{"scopes": ["repo"], "note": "my API token"}' \
-        https://${user}:${pass}@api.github.com/authorizations | grep token
+    curl -s -X POST -d '{}' -u ${user} https://api.github.com/authorizations \
+        | grep token
 
 Now set the value of github.token to the hash returned from the command above:
 
