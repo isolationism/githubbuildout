@@ -5,43 +5,37 @@ def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
 long_description=(
-        read('README.txt')
+        read('README.rst')
         + '\n' +
         read('CHANGES.txt')
-        + '\n' +
-        'Download\n'
-        '**********************\n'
-        )
+        + '\n'
+    )
 
-name='lovely.buildouthttp'
+name='githubbuildout'
 setup(
     name = name,
-    version = "0.4.4",
-    author = "Lovely Systems GmbH",
-    author_email = "office@lovelysystems.com",
-    description = "Buildout extension to add http authentication "
-                  "for find-links and download recipies",
+    version = "0.1",
+    author = "Kevin Williams",
+    author_email = "kevin@weblivion.com",
+    description = "Buildout extension to enable downloads from private GitHub "
+                  "repositories into buildout find-links and download recipes",
     long_description = long_description,
     license = "ZPL 2.1",
-    keywords = "buildout http authentication github",
-    url='http://github.com/lovelysystems/lovely.buildouthttp',
+    keywords = "buildout github private repository download",
+    url = 'https://github.com/isolationism/githubbuildout',
     packages = find_packages('src'),
     include_package_data = True,
     package_dir = {'':'src'},
-    namespace_packages = ['lovely'],
     install_requires = ['setuptools', 'zc.buildout'],
-    extras_require = dict(
-        test = ['zope.testing']
-        ),
     entry_points = {'zc.buildout.extension':
-                    ['default = %s.buildouthttp:install' % name]
-                    },
+            ['default = %s.githubbuildout:install' % name]
+        },
     zip_safe = False,
     classifiers = [
-       'Development Status :: 5 - Production/Stable',
-       'Intended Audience :: Developers',
-       'License :: OSI Approved :: Zope Public License',
-       'Topic :: Software Development :: Build Tools',
-       'Topic :: Software Development :: Libraries :: Python Modules',
-       ],
+           'Development Status :: 4 - Beta',
+           'Intended Audience :: Developers',
+           'License :: OSI Approved :: Zope Public License',
+           'Framework :: Buildout :: Extension',
+           'Topic :: Software Development :: Build Tools',
+        ],
     )

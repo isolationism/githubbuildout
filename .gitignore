@@ -3,6 +3,6 @@
 /develop-eggs/
 /parts/
 /dist/
-/src/lovely.buildouthttp.egg-info/
+/src/githubbuildout.egg-info/
 *.pyc
 *.pyo
