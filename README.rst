@@ -22,20 +22,20 @@ revoke them at will.
 API keys are tied to an individual user account.
 
 You can create API v3 key using ``curl`` (please substitute your own GitHub
-user name):
+user name)::
 
     curl -s -X POST -d '{}' -u ${user} https://api.github.com/authorizations \
         | grep token
 
 If you plan to make multiple keys for distribution to different systems (e.g.
 automated build environment), you might want to include a description to be
-able to distinguish them from one another later:
+able to distinguish them from one another later::
 
     curl -s -X POST -d '{"note": "build001.mydomain.ext"}' -u ${user} \
         https://api.github.com/authorizations | grep token
 
 Now configure the value of github.token to the hash returned from the command
-above:
+above::
 
     git config --global github.token ${token}
 
@@ -48,7 +48,7 @@ Usage: GitHub Repository Downloads
 
 You can instruct Buildout to download a tarball of any refid from your
 repository by specifying the same URL as you would use in your browser to
-retrieve it, using the following syntax:
+retrieve it, using the following syntax::
 
     https://github.com/${user}/${project}/${archivetype}/${refid}
 
@@ -56,7 +56,7 @@ retrieve it, using the following syntax:
 using this extension; URLs using the ``http`` protocol will be ignored.
 
 In practice, you would typically use this to retrieve a tarball for
-installation as an egg in your buildout file, using a recipe similar to this:
+installation as an egg in your buildout file, using a recipe similar to this::
 
     [buildout]
     find-links =
@@ -79,7 +79,7 @@ Usage: GitHub Static Downloads
 
 Static downloads that have been previously uploaded to your GitHub project
 may also be retrieved using the same URL you would use in your browser,
-formed as follows:
+formed as follows::
 
     https://github.com/downloads/${user}/${project}/${filename}
 
@@ -89,7 +89,7 @@ formed as follows:
 Since these files can contain static software releases as eggs or anything
 else you want (media files, configuration data, etc.) it is up to you how
 to use them in your buildout; a common pattern is to install them as a part
-in a fashion similar to the following example:
+in a fashion similar to the following example::
 
     [buildout]
     parts = mypart
