@@ -8,11 +8,11 @@ tarballs and static downloads from private repositories by using the API v3's
 token-based authentication, combined with a bit of URL rewriting to retrieve
 files using the API server instead of the main website when required.
 
-Please see the sections below for setup usage instructions.
+Please see the sections below for setup and usage instructions.
 
 
-Set Up: Request an API Key
-==========================
+Request an API Key
+------------------
 
 Before you can access private repositories from this module, you must create
 and store an API key on each system running buildout. Unlike the v2 API where
@@ -24,15 +24,23 @@ API keys are tied to an individual user account.
 You can create API v3 key using ``curl`` (please substitute your own GitHub
 user name)::
 
-    curl -s -X POST -d '{}' -u ${user} https://api.github.com/authorizations \
-        | grep token
+    curl -s -X POST -d '{"scopes": ["repo"]}' -u ${user} \
+        https://api.github.com/authorizations | grep token
+
+Important Note: You MUST specify the scopes attribute to secure access to
+private repositories; leaving the scope blank provides read-only access to
+public data.
 
 If you plan to make multiple keys for distribution to different systems (e.g.
 automated build environment), you might want to include a description to be
 able to distinguish them from one another later::
 
-    curl -s -X POST -d '{"note": "build001.mydomain.ext"}' -u ${user} \
-        https://api.github.com/authorizations | grep token
+    curl -s -X POST -d '{"note": "build001.mydomain.ext", "scopes": ["repo"]}' \
+        -u ${user} https://api.github.com/authorizations | grep token
+
+
+Store API Key in Git Config
+---------------------------
 
 Now configure the value of github.token to the hash returned from the command
 above::
@@ -43,8 +51,8 @@ For details on managing authorization GitHub's OAuth tokens, see the API
 documentation: http://developer.github.com/v3/oauth/#oauth-authorizations-api
 
 
-Usage: GitHub Repository Downloads
-==================================
+GitHub Repository Downloads
+---------------------------
 
 You can instruct Buildout to download a tarball of any refid from your
 repository by specifying the same URL as you would use in your browser to
@@ -71,11 +79,14 @@ installation as an egg in your buildout file, using a recipe similar to this::
     recipe = zc.recipe.egg
     path = myproject
 
-These URLs will be rewritten on demand to retrieve the
+Note: These URLs will be rewritten during retrieval to use the API v3 URL instead.
+If you wish, you can explicitly specify the API server URL for retriving the file::
+
+    https://api.github.com/repo/me/myproject/tarball/master
 
 
-Usage: GitHub Static Downloads
-==============================
+GitHub Static Downloads
+-----------------------
 
 Static downloads that have been previously uploaded to your GitHub project
 may also be retrieved using the same URL you would use in your browser,
@@ -100,7 +111,7 @@ in a fashion similar to the following example::
 
 
 Credits
-=======
+-------
 
 Thanks to Bernd Dorn, Jürgen Kartnaller, Bernd Rössl and the rest at Lovely
 Systems for lovely.buildouthttp (upon which this project is based), and to
