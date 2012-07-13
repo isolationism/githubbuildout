@@ -42,10 +42,10 @@ able to distinguish them from one another later::
 Store API Key in Git Config
 ---------------------------
 
-Now configure the value of github.token to the hash returned from the command
-above::
+Now configure the value of github.accesstoken to the hash returned from the 
+command above::
 
-    git config --global github.token ${token}
+    git config --global github.accesstoken ${token}
 
 For details on managing authorization GitHub's OAuth tokens, see the API
 documentation: http://developer.github.com/v3/oauth/#oauth-authorizations-api
