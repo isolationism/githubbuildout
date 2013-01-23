@@ -85,8 +85,15 @@ If you wish, you can explicitly specify the API server URL for retriving the fil
     https://api.github.com/repo/me/myproject/tarball/master
 
 
-GitHub Static Downloads
------------------------
+GitHub Static Downloads (DEPRECATED)
+------------------------------------
+
+IMPORTANT NOTE: Support for static downloads has been deprecated by GitHub
+as of 2012-12-11 and will be removed "in 90 days" (on or around 2013-03-11).
+If your project depends on this feature, now would be a good time to make
+alternate plans. For details, see the link below:
+
+    https://github.com/blog/1302-goodbye-uploads
 
 Static downloads that have been previously uploaded to your GitHub project
 may also be retrieved using the same URL you would use in your browser,
