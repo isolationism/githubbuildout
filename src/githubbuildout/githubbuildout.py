@@ -139,8 +139,14 @@ class GithubHandler(urllib2.BaseHandler):
             if not new_url:
                 return req
 
-            # Set the Authorization token in the request headers
-            headers = {'Authorization': 'token %s' % (self._token,)}
+            # Set the Authorization token in the request headers.
+            # Since 2013-04-24, the user agent must be declared:
+            # http://developer.github.com/changes/
+            # 2013-04-24-user-agent-required/
+            headers = {
+                'Authorization': 'token %s' % (self._token,),
+                'User-Agent': 'githubbuildout/0.2 zc.buildout',
+            }
             log.debug("Adding GitHub authorization token to header")
 
             req = urllib2.Request(new_url, headers=headers)
